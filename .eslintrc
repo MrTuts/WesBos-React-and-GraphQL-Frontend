@@ -1,0 +1,50 @@
+{
+  "root": true,
+  "extends": [
+    "eslint-config-wesbos/typescript.js",
+    "plugin:import/errors",
+    "plugin:import/warnings"
+  ],
+  "parserOptions": {
+    "project": "./tsconfig.json"
+  },
+	"plugins": [
+    "import"
+  ],
+  "rules": {
+    "@typescript-eslint/explicit-module-boundary-types": "off",
+    "react/jsx-props-no-spreading":0,
+    "no-console": "error",
+    "import/imports-first": 2,
+    "import/named": 0,
+    "import/no-amd": 2,
+    "import/no-unresolved": 0,
+    "import/no-named-as-default-member": 0,
+    "import/no-commonjs": "error",
+    "import/namespace": 0,
+    "import/default": 0,
+    "import/no-named-as-default": 0,
+    "import/order": [
+      "error",
+      {
+        "groups": [
+          [
+            "builtin",
+            "external"
+          ],
+          [
+            "internal",
+            "sibling",
+            "parent",
+            "index"
+          ]
+        ],
+        "alphabetize": {
+          "order": "asc"
+        },
+        "pathGroupsExcludedImportTypes": [],
+        "newlines-between": "always"
+      }
+    ]
+  }
+}
