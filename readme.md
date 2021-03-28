@@ -14,3 +14,9 @@
 
 - global styles are defined in `components/Page.tsx` using `styled-components`, there are few interesting things
 - files to include (e.g. fonts) are placed into `public/static`
+
+## 08
+
+- the top bar loader when navigating between screens is provided by `nprogress` package
+- we can import libs default styles by simply `import 'nprogress/nprogress.css';` or use custom css
+- configured in `pages/_app.tsx`
