@@ -20,3 +20,8 @@
 - the top bar loader when navigating between screens is provided by `nprogress` package
 - we can import libs default styles by simply `import 'nprogress/nprogress.css';` or use custom css
 - configured in `pages/_app.tsx`
+
+## 09
+
+- <https://styled-components.com/docs/advanced#server-side-rendering>
+- configured in `pages/_document.tsx`

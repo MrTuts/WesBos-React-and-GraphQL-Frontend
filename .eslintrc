@@ -12,6 +12,10 @@
     "import"
   ],
   "rules": {
+    "@typescript-eslint/no-unsafe-return": "off",
+    "@typescript-eslint/no-unsafe-call": "off",
+    "@typescript-eslint/no-unsafe-assignment": "off",
+    "@typescript-eslint/ban-ts-comment": "off",
     "@typescript-eslint/explicit-module-boundary-types": "off",
     "react/jsx-props-no-spreading":0,
     "no-console": "error",
