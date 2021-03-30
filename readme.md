@@ -36,3 +36,7 @@
 - apollo-boost is library containing the most common setup. If we need some other functionality, we have to "eject" from it. Eg. image uploading is not supported
 - Apollo is setup in `lib/withData.ts`
 - exports Provider used in `pages/_app.tsx`
+
+##  20
+
+- we make query like this `const { data, error, loading } = useQuery(ALL_PRODUCTS_QUERY);` (see `components/Products.tsx`). We won't get `loading` on initial render, because it's loaded on server side (if the page is server loaded)
