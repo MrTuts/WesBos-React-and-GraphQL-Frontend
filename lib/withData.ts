@@ -1,8 +1,9 @@
 import { ApolloClient, ApolloLink, InMemoryCache } from '@apollo/client';
-import { onError } from '@apollo/link-error';
 import { getDataFromTree } from '@apollo/client/react/ssr';
+import { onError } from '@apollo/link-error';
 import { createUploadLink } from 'apollo-upload-client';
 import withApollo from 'next-with-apollo';
+
 import { endpoint, prodEndpoint } from '../config';
 
 function createClient({ headers, initialState }) {
@@ -10,6 +11,10 @@ function createClient({ headers, initialState }) {
     link: ApolloLink.from([
       onError(({ graphQLErrors, networkError }) => {
         if (graphQLErrors)
+          /* 
+            handling link error
+            catches eg. wrong password, when requesting field that doesn't exist
+          */
           graphQLErrors.forEach(({ message, locations, path }) =>
             console.log(
               `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`
@@ -21,6 +26,8 @@ function createClient({ headers, initialState }) {
           );
       }),
       // this uses apollo-link-http under the hood, so all the options here come from that package
+      // responsible for fetching data etc.
+      // this supports files upload
       createUploadLink({
         uri: process.env.NODE_ENV === 'development' ? endpoint : prodEndpoint,
         fetchOptions: {
@@ -43,4 +50,7 @@ function createClient({ headers, initialState }) {
   });
 }
 
+/* crawl all pages and component and looks for any queries we have, 
+  and server will wait for data to be fetched before sending the html 
+*/
 export default withApollo(createClient, { getDataFromTree });

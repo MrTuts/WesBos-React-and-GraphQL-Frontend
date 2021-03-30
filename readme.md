@@ -25,3 +25,14 @@
 
 - <https://styled-components.com/docs/advanced#server-side-rendering>
 - configured in `pages/_document.tsx`
+
+## 10 - 18
+
+- in backend project
+
+## 19
+
+- We use Apollo to fetch data from FE, it caches data for us by default
+- apollo-boost is library containing the most common setup. If we need some other functionality, we have to "eject" from it. Eg. image uploading is not supported
+- Apollo is setup in `lib/withData.ts`
+- exports Provider used in `pages/_app.tsx`
