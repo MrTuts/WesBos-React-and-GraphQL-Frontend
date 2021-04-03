@@ -45,3 +45,8 @@
 
 - Example form in `pages/sell.tsx`
 - We've create custom hook for handling form inputs in `lib/useForm.ts`
+
+##  22
+
+- `fieldset` lets us control wrapped inputs, e.g. disabling them all. `aria-busy` is aria accessibility attribute, we use it for loading indication (look at `components/styles/Form.ts` for `aria-busy='true'`)
+- we can use `required` prop on `input` field

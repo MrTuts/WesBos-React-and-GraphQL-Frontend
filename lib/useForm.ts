@@ -1,17 +1,21 @@
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, ChangeEventHandler, useState } from 'react';
 
 export default function useForm<T extends Record<string, string | number>>(
   // @ts-ignore
   initial: T = {}
 ): {
   inputs: T;
-  handleChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  handleChange: (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => void;
   resetForm: () => void;
   clearForm: () => void;
 } {
   const [inputs, setInputs] = useState(initial);
 
-  function handleChange(e: ChangeEvent<HTMLInputElement>) {
+  function handleChange(
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) {
     let { value, name, type } = e.target;
 
     if (type === 'number') {
@@ -19,8 +23,9 @@ export default function useForm<T extends Record<string, string | number>>(
       value = parseInt(value);
     }
     if (type === 'file') {
+      // files is an array, take just first item
       // @ts-ignore
-      value[0] = e.target.files;
+      [value] = e.target.files;
     }
 
     setInputs((currentInputs) => ({
