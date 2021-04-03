@@ -50,3 +50,7 @@
 
 - `fieldset` lets us control wrapped inputs, e.g. disabling them all. `aria-busy` is aria accessibility attribute, we use it for loading indication (look at `components/styles/Form.ts` for `aria-busy='true'`)
 - we can use `required` prop on `input` field
+
+## 23
+
+- GraphQL mutation example in `components/CreateProduct.tsx`
