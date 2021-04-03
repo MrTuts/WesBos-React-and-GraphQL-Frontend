@@ -41,16 +41,21 @@
 
 - we make query like this `const { data, error, loading } = useQuery(ALL_PRODUCTS_QUERY);` (see `components/Products.tsx`). We won't get `loading` on initial render, because it's loaded on server side (if the page is server loaded)
 
-## 21
+## 22
 
 - Example form in `pages/sell.tsx`
 - We've create custom hook for handling form inputs in `lib/useForm.ts`
 
-##  22
+##  23
 
 - `fieldset` lets us control wrapped inputs, e.g. disabling them all. `aria-busy` is aria accessibility attribute, we use it for loading indication (look at `components/styles/Form.ts` for `aria-busy='true'`)
 - we can use `required` prop on `input` field
 
-## 23
+## 24
 
 - GraphQL mutation example in `components/CreateProduct.tsx`
+
+##  25
+
+- To update list of data after we add new item, we can directly modify the Apollo cache. Or
+- we can tell Apollo to refresh the list after the mutation - `refetchQueries` in `components/CreateProduct.tsx`

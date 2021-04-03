@@ -4,6 +4,7 @@ import { FormEvent } from 'react';
 
 import useForm from '../lib/useForm';
 import ErrorMessage from './ErrorMessage';
+import { ALL_PRODUCTS_QUERY } from './Products';
 import Form from './styles/Form';
 
 const CREATE_PRODUCT_MUTATION = gql`
@@ -38,7 +39,7 @@ const CREATE_PRODUCT_MUTATION = gql`
 export default function CreateProduct() {
   const { inputs, clearForm, resetForm, handleChange } = useForm({
     image: '',
-    name: 'sdass',
+    name: '',
     price: '',
     description: '',
   });
@@ -52,6 +53,8 @@ export default function CreateProduct() {
     {
       // passed data, but we can also pass them to createProduct fn
       variables: inputs,
+      // after we add the item, refetch following queries
+      refetchQueries: [{ query: ALL_PRODUCTS_QUERY }],
     }
   );
 
