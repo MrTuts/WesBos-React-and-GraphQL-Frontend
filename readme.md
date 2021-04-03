@@ -40,3 +40,8 @@
 ##  20
 
 - we make query like this `const { data, error, loading } = useQuery(ALL_PRODUCTS_QUERY);` (see `components/Products.tsx`). We won't get `loading` on initial render, because it's loaded on server side (if the page is server loaded)
+
+## 21
+
+- Example form in `pages/sell.tsx`
+- We've create custom hook for handling form inputs in `lib/useForm.ts`
