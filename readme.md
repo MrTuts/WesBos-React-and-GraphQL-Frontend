@@ -63,3 +63,12 @@
 ##  26
 
 - Navigate programmatically using `Router from 'next/router';`. See `components/CreateProduct.tsx`
+
+## 27
+
+- CRUDS stands for Create, Read, Update, Delete, Subscribe
+- we can make navigation like `https.../product/a53sf5m` by creating `product` folder with `[id].tsx` file.
+- We can also make nested queries by e.g. `pages/[number]/[id].tsx`
+- We should get the `id` in `query` Prop of that file? From docs we need to use `useRouter`
+- When we want to fetch single item from query, we need to look by unique field
+- We can change the title tag (tab name in browser) by using `Head` component, e.g. see `components/SingleProduct.tsx`
