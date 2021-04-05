@@ -1,5 +1,6 @@
 import { useMutation } from '@apollo/client';
 import gql from 'graphql-tag';
+import Router from 'next/router';
 import { FormEvent } from 'react';
 
 import useForm from '../lib/useForm';
@@ -36,6 +37,15 @@ const CREATE_PRODUCT_MUTATION = gql`
   }
 `;
 
+type ReturnedData = {
+  createProduct: {
+    id: string;
+    price: number;
+    description: string;
+    name: string;
+  };
+};
+
 export default function CreateProduct() {
   const { inputs, clearForm, resetForm, handleChange } = useForm({
     image: '',
@@ -48,7 +58,7 @@ export default function CreateProduct() {
     createProduct - function to run mutation
     data - data returned from mutation, also gets returned by createProduct fn
    */
-  const [createProduct, { data, error, loading }] = useMutation(
+  const [createProduct, { data, error, loading }] = useMutation<ReturnedData>(
     CREATE_PRODUCT_MUTATION,
     {
       // passed data, but we can also pass them to createProduct fn
@@ -64,6 +74,11 @@ export default function CreateProduct() {
       // eslint-disable-next-line
       const { data } = await createProduct();
       clearForm();
+      if (data) {
+        await Router.push({
+          pathname: `product/${data.createProduct.id}`,
+        });
+      }
     } catch (er) {
       // errors is set to error in useMutation
     }

@@ -59,3 +59,7 @@
 
 - To update list of data after we add new item, we can directly modify the Apollo cache. Or
 - we can tell Apollo to refresh the list after the mutation - `refetchQueries` in `components/CreateProduct.tsx`
+
+##  26
+
+- Navigate programmatically using `Router from 'next/router';`. See `components/CreateProduct.tsx`
