@@ -76,3 +76,8 @@
 ## 28
 
 - Another way of navigating (using queries) is in `components/Product.tsx`. Query is received in same object as using Dynamic Routes
+
+## 30
+
+- Interesting approach to preventing unwanted button press - counting number of presses and calling the action after x press. Not implemented here
+- Here we use build in `confirm('..')` function, see `components/DeleteProduct.tsx`. Not very user friendly
