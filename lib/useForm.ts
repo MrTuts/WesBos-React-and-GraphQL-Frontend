@@ -1,4 +1,4 @@
-import { ChangeEvent, ChangeEventHandler, useState } from 'react';
+import { ChangeEvent, useEffect, useState, useRef } from 'react';
 
 export default function useForm<T extends Record<string, string | number>>(
   // @ts-ignore
@@ -12,6 +12,12 @@ export default function useForm<T extends Record<string, string | number>>(
   clearForm: () => void;
 } {
   const [inputs, setInputs] = useState(initial);
+  const initialValues = useRef(Object.values(initial));
+
+  useEffect(() => {
+    // weird workaround to updating initial values
+    setInputs(initial);
+  }, [initialValues]);
 
   function handleChange(
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
