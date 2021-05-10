@@ -85,3 +85,7 @@
 ## 31
 
 - Removing item from cache after item is deleted on BE in `update` fn in `components/DeleteProduct.tsx`
+
+## 32
+
+- If we need to put custom props to `Link` component, then we need to pass those props to `<a>` tag in `Link`. See `components/Pagination.tsx`
