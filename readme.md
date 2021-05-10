@@ -94,3 +94,7 @@
 
 - Placing `index.tsx` file into dynamic folder will allow us to access the route without query.
 - We could also instead have following folder structure `pages/products.tsx` and `pages/products/[page].tsx`
+
+## 34
+
+- Pagination query in `components/Products.tsx`

@@ -12,7 +12,7 @@ export default function ProductsPage() {
   return (
     <div>
       <Pagination page={currentPage} />
-      <Products />
+      <Products page={currentPage} />
       <Pagination page={currentPage} />
     </div>
   );
