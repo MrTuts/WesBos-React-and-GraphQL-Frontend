@@ -89,3 +89,8 @@
 ## 32
 
 - If we need to put custom props to `Link` component, then we need to pass those props to `<a>` tag in `Link`. See `components/Pagination.tsx`
+
+## 33
+
+- Placing `index.tsx` file into dynamic folder will allow us to access the route without query.
+- We could also instead have following folder structure `pages/products.tsx` and `pages/products/[page].tsx`
