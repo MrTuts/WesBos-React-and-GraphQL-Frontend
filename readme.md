@@ -80,4 +80,8 @@
 ## 30
 
 - Interesting approach to preventing unwanted button press - counting number of presses and calling the action after x press. Not implemented here
-- Here we use build in `confirm('..')` function, see `components/DeleteProduct.tsx`. Not very user friendly
+- Here we use build-in `confirm('..')` function, see `components/DeleteProduct.tsx`. Not very user friendly
+
+## 31
+
+- Removing item from cache after item is deleted on BE in `update` fn in `components/DeleteProduct.tsx`

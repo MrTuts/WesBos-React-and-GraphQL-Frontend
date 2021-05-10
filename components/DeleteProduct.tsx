@@ -1,4 +1,4 @@
-import { useMutation } from '@apollo/client';
+import { ApolloCache, FetchResult, useMutation } from '@apollo/client';
 import gql from 'graphql-tag';
 import { ReactNode } from 'react';
 
@@ -12,6 +12,17 @@ const DELETE_PRODUCT_MUTATION = gql`
   }
 `;
 
+function update(
+  cache: ApolloCache<any>,
+  payload: FetchResult<{ deleteProduct: { id: string; name: string } }>
+) {
+  if (!payload.data) {
+    return;
+  }
+  // find data in cache and remove it after item is deleted on BE
+  cache.evict({ id: cache.identify(payload.data.deleteProduct) });
+}
+
 type Props = {
   id: string;
   children: ReactNode;
@@ -19,7 +30,8 @@ type Props = {
 
 export default function DeleteProduct({ id, children }: Props) {
   const [deleteProduct, { loading }] = useMutation(DELETE_PRODUCT_MUTATION, {
-    variables: id,
+    variables: { id },
+    update,
   });
 
   const handleClick = async () => {
