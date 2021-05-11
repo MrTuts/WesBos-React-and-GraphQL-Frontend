@@ -26,7 +26,7 @@ export default function Product({ product }: Props) {
       <div className="buttonList">
         <Link
           href={{
-            pathname: 'update',
+            pathname: '/update',
             query: {
               id: product.id,
             },
