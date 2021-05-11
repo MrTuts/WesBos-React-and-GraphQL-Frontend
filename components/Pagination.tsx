@@ -7,7 +7,7 @@ import { perPage } from '../config';
 import DisplayError from './ErrorMessage';
 import PaginationStyles from './styles/PaginationStyles';
 
-const PAGINATION_QUERY = gql`
+export const PAGINATION_QUERY = gql`
   query PAGINATION_QUERY {
     _allProductsMeta {
       count
@@ -15,14 +15,16 @@ const PAGINATION_QUERY = gql`
   }
 `;
 
+export type AllProductsMeta = {
+  _allProductsMeta: { count: number };
+};
+
 type Props = {
   page: number;
 };
 
 export default function Pagination({ page }: Props) {
-  const { error, loading, data } = useQuery<{
-    _allProductsMeta: { count: number };
-  }>(PAGINATION_QUERY);
+  const { error, loading, data } = useQuery<AllProductsMeta>(PAGINATION_QUERY);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <DisplayError error={error} />;

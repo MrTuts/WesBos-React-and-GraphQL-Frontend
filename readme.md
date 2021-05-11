@@ -98,3 +98,8 @@
 ## 34
 
 - Pagination query in `components/Products.tsx`
+
+##  35
+
+- Moving items in paginated cache solved in `lib/paginationField.ts`. For that to work, there is also crucial function `cache.evict(cache.identify(payload.data.deleteProduct));` in `components/DeleteProduct.tsx`.
+- The solution has some bugs

@@ -20,7 +20,9 @@ function update(
     return;
   }
   // find data in cache and remove it after item is deleted on BE
-  cache.evict({ id: cache.identify(payload.data.deleteProduct) });
+  // cache.evict({ id: cache.identify(payload.data.deleteProduct) });
+  // @ts-ignore the "correct" way above does not work as expected
+  cache.evict(cache.identify(payload.data.deleteProduct));
 }
 
 type Props = {

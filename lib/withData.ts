@@ -5,6 +5,7 @@ import { createUploadLink } from 'apollo-upload-client';
 import withApollo from 'next-with-apollo';
 
 import { endpoint, prodEndpoint } from '../config';
+import paginationField from './paginationField';
 
 function createClient({ headers, initialState }) {
   return new ApolloClient({
@@ -41,8 +42,8 @@ function createClient({ headers, initialState }) {
       typePolicies: {
         Query: {
           fields: {
-            // TODO: We will add this together!
-            // allProducts: paginationField(),
+            // handle products pagination when manipulating items
+            allProducts: paginationField(),
           },
         },
       },
