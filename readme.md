@@ -103,3 +103,7 @@
 
 - Moving items in paginated cache solved in `lib/paginationField.ts`. For that to work, there is also crucial function `cache.evict(cache.identify(payload.data.deleteProduct));` in `components/DeleteProduct.tsx`.
 - The solution has some bugs
+
+## 36
+
+- querying for type containing union of types can be done by `... on UnionType { }`, see `components/User.tsx`
