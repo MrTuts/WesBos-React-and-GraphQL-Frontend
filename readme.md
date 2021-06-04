@@ -107,3 +107,7 @@
 ## 36
 
 - querying for type containing union of types can be done by `... on UnionType { }`, see `components/User.tsx`
+
+## 40
+
+- to be able to call the mutation `sendUserPasswordResetLink` in `components/RequestReset.tsx` we need to activate this feature in keystone, see backend `keystone.ts`
