@@ -8,17 +8,48 @@ export const CURRENT_USER_QUERY = gql`
         id
         email
         name
-        # TODO Query the card once we have it
+        cart {
+          id
+          quantity
+          product {
+            id
+            price
+            name
+            description
+            photo {
+              image {
+                publicUrlTransformed
+              }
+            }
+          }
+        }
       }
     }
   }
 `;
+
+export type CartItem = {
+  id: string;
+  quantity: number;
+  product: {
+    id: number;
+    price: number;
+    name: string;
+    description: string;
+    photo: {
+      image: {
+        publicUrlTransformed: string;
+      };
+    };
+  };
+};
 
 type User = {
   authenticatedItem: {
     id: string;
     email: string;
     name: string;
+    cart: Array<CartItem>;
   };
 };
 
