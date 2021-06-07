@@ -18,7 +18,6 @@ export default function ResetPage() {
 
   return (
     <div>
-      <p>RESET YOUR PASSWORD {token}</p>
       <Reset token={token} />
     </div>
   );
