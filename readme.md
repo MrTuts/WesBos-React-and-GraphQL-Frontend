@@ -111,3 +111,7 @@
 ## 40
 
 - to be able to call the mutation `sendUserPasswordResetLink` in `components/RequestReset.tsx` we need to activate this feature in keystone, see backend `keystone.ts`
+
+##  50
+
+- There is optimistic update solution in `components/RemoveFromCart.tsx`, but it does not work and causes every query to re-fetch
