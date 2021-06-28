@@ -1,6 +1,12 @@
-import { CardElement, Elements } from '@stripe/react-stripe-js';
-import { loadStripe } from '@stripe/stripe-js';
-import { FormEvent } from 'react';
+import {
+  CardElement,
+  Elements,
+  useElements,
+  useStripe,
+} from '@stripe/react-stripe-js';
+import { loadStripe, StripeError } from '@stripe/stripe-js';
+import nProgress from 'nprogress';
+import { FormEvent, useState } from 'react';
 import styled from 'styled-components';
 
 import SickButton from './styles/SickButton';
@@ -16,18 +22,56 @@ const CheckoutFormStyles = styled.form`
 
 const stripeLib = loadStripe(process.env.NEXT_PUBLIC_STRIPE_KEY || '');
 
-export default function Checkout() {
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+function CheckoutForm() {
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<StripeError | undefined | null>(null);
+
+  const stripe = useStripe();
+  const elements = useElements();
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    const card = elements?.getElement(CardElement);
+    if (!card || !stripe) {
+      return;
+    }
+    // stop form from submitting and turn loader on
     e.preventDefault();
-    // TODO:
+    setLoading(true);
+    // start the page transition
+    nProgress.start();
+    // create the payment method via stripe (Token comes here if successful)
+    const {
+      error: stripeError,
+      paymentMethod,
+    } = await stripe?.createPaymentMethod({
+      type: 'card',
+      card,
+    });
+    // Handle any errors from stripe
+    if (error) {
+      setError(stripeError);
+    }
+    // Send the token from step 3 to our keystone server via a custom mutation
+    // Change the page to view the order
+    // Close the cart
+    // Turn the loader off
+    setLoading(false);
+    nProgress.done();
   };
 
   return (
+    <CheckoutFormStyles onSubmit={handleSubmit}>
+      {error && <p style={{ fontSize: 12 }}>{error.message}</p>}
+      <CardElement />
+      <SickButton>Check Out Now</SickButton>
+    </CheckoutFormStyles>
+  );
+}
+
+export default function Checkout() {
+  return (
     <Elements stripe={stripeLib}>
-      <CheckoutFormStyles onSubmit={handleSubmit}>
-        <CardElement />
-        <SickButton>Check Out Now</SickButton>
-      </CheckoutFormStyles>
+      <CheckoutForm />
     </Elements>
   );
 }
