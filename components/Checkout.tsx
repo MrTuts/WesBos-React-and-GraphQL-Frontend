@@ -7,10 +7,13 @@ import {
 } from '@stripe/react-stripe-js';
 import { loadStripe, StripeError } from '@stripe/stripe-js';
 import gql from 'graphql-tag';
+import { useRouter } from 'next/router';
 import nProgress from 'nprogress';
 import { FormEvent, useState } from 'react';
 import styled from 'styled-components';
 
+import { useCart } from '../lib/cartState';
+import { CURRENT_USER_QUERY } from './User';
 import SickButton from './styles/SickButton';
 
 const CheckoutFormStyles = styled.form`
@@ -36,13 +39,27 @@ const CREATE_ORDER_MUTATION = gql`
   }
 `;
 
+type OrderReturn = {
+  checkout: {
+    id: string;
+    charge: number;
+    total: number;
+    items: Array<{ id: string; name: string }>;
+  };
+};
+
 const stripeLib = loadStripe(process.env.NEXT_PUBLIC_STRIPE_KEY || '');
 
 function CheckoutForm() {
+  const router = useRouter();
+  const { closeCart } = useCart();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<StripeError | undefined | null>(null);
-  const [checkout, { error: graphQLError }] = useMutation(
-    CREATE_ORDER_MUTATION
+  const [checkout, { error: graphQLError }] = useMutation<OrderReturn>(
+    CREATE_ORDER_MUTATION,
+    {
+      refetchQueries: [{ query: CURRENT_USER_QUERY }],
+    }
   );
 
   const stripe = useStripe();
@@ -56,8 +73,10 @@ function CheckoutForm() {
     // stop form from submitting and turn loader on
     e.preventDefault();
     setLoading(true);
+
     // start the page transition
     nProgress.start();
+
     // create the payment method via stripe (Token comes here if successful)
     const {
       error: stripeError,
@@ -66,18 +85,28 @@ function CheckoutForm() {
       type: 'card',
       card,
     });
+
     // Handle any errors from stripe
     if (!paymentMethod || error) {
       setError(stripeError);
       nProgress.done();
       return;
     }
+
     // Send the token from step 3 to our keystone server via a custom mutation
-    const order = await checkout({ variables: { token: paymentMethod.id } });
-    console.log('Finished with the order');
-    console.log(order);
+    const order = await checkout({
+      variables: { token: paymentMethod.id },
+    });
+
     // Change the page to view the order
+    await router.push({
+      pathname: '/order/[id]',
+      query: { id: order?.data?.checkout.id },
+    });
+
     // Close the cart
+    closeCart();
+
     // Turn the loader off
     setLoading(false);
     nProgress.done();
